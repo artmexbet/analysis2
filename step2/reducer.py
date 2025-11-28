@@ -2,17 +2,23 @@
 """
 Step 2 Reducer: Finds top 4 users with maximum identical requests.
 
-Input: tab-separated (sorted by count):
+Input: tab-separated (sorted by count in descending order):
     count\tUsername\tMETHOD /path
 
 Output: Top 4 results:
     Username\tMETHOD /path\tcount
+
+Note: Input is expected to be sorted by count descending, so we can
+process records sequentially and stop after 4 results.
 """
 import sys
 
-results = []
+count_output = 0
 
 for line in sys.stdin:
+    if count_output >= 4:
+        break
+        
     line = line.strip()
     if not line:
         continue
@@ -21,12 +27,8 @@ for line in sys.stdin:
         parts = line.split('\t')
         count = int(parts[0])
         username = parts[1]
-        request_type = parts[2]
-        results.append((count, username, request_type))
+        request = parts[2]
+        print(f"{username}\t{request}\t{count}")
+        count_output += 1
     except (IndexError, ValueError):
         continue
-
-results.sort(key=lambda x: -x[0])
-
-for count, username, request_type in results[:4]:
-    print(f"{username}\t{request_type}\t{count}")

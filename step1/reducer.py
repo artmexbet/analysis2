@@ -21,8 +21,8 @@ for line in sys.stdin:
     try:
         parts = line.split('\t')
         username = parts[0]
-        request_type = parts[1]
-        key = f"{username}\t{request_type}"
+        request = parts[1]
+        key = f"{username}\t{request}"
     except (IndexError, ValueError):
         continue
     

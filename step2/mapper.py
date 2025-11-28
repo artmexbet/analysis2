@@ -18,8 +18,8 @@ for line in sys.stdin:
     try:
         parts = line.split('\t')
         username = parts[0]
-        request_type = parts[1]
+        request = parts[1]
         count = int(parts[2])
-        print(f"{count}\t{username}\t{request_type}")
+        print(f"{count}\t{username}\t{request}")
     except (IndexError, ValueError):
         continue
